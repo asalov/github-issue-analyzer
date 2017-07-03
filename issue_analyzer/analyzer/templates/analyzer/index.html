@@ -1,0 +1,78 @@
+	{% extends 'analyzer/layout.html' %}
+
+	{% block content %}
+		<h1 class="title">
+			<a href="{% url 'index' %}"><i class="fa as-fa-github"></i> GitHub Issue Analyzer</a>
+		</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<form action="results" method="get" class="form-inline" id="searchForm">
+					<div class="input-group input-group-lg">
+						<input type="search" name="q" id="q" class="form-control" required autofocus 
+						placeholder="Searching for..." value="{{ q }}">	
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+					<div class="suggestion-range">
+						<label for="level">Suggestion precision</label>
+						<div class="input-group form-group-lg">
+							<span class="input-group-addon">High</span>
+							<input type="range" class="form-control" name="level" id="level" 
+							step="1" min="1" max="3" value="{{ level|default:2 }}">
+							<span class="input-group-addon">Moderate</span>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row result-section {% if not search_made %} hidden {% endif %}">
+			<div class="col-md-12 header">
+				<h3>Results for: <span class="query">"{{ q }}"</span></h3>
+			</div>
+			<div class="col-md-12 results">
+			{% if results.solutions|length > 0 %}
+				{% for sol in results.solutions %}
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>{{ sol.body }}</p>
+						<p class="comment-link">
+							<span>View in context: </span>
+							<a href="{{ sol.html_url }}" target="_blank">{{ sol.html_url }}</a>
+						</p>						
+					</div>
+					<div class="panel-footer suggestion-score text-success">
+						<i class="fa fa-thumbs-up"></i>
+						<span>{{ sol.positive_score }}</span>
+					</div>
+				</div>
+				{% endfor %}
+			{% endif %}
+			
+			{% if results.solutions|length > 0 and results.similar|length > 0 %}
+				<hr class="result-divider">
+			{% endif %}
+			
+			{% if results.similar|length > 0 %}
+				<div class="panel panel-default similar-issues">
+					<div class="panel-heading">
+						<h4 class="panel-title">Issues that may be similar to yours:</h4>
+					</div>
+					<ul class="list-group">
+						{% for issue in results.similar %}
+							<li class="list-group-item">
+								<p>{{ issue.title }}</p>
+								<p><a href="{{ issue.html_url }}" target="_blank">{{ issue.html_url }}</a></p>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			</div>
+			<div class="col-md-12 no-results {% if has_results %} hidden {% endif %}">
+				<div class="alert alert-warning">No results found for your query.</div>
+			</div>			
+		</div>
+	{% endblock content %}

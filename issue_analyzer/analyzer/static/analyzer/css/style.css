@@ -1,0 +1,94 @@
+body{
+	background: #F8F8FF;
+	font-family: 'Lato', Arial, sans-serif;
+}
+
+.loader{
+	position:fixed;
+	width:50px;
+	height:50px;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	z-index:100;
+}
+
+.loader i{
+	font-size:5rem;
+}
+
+.as-fa-github:before{
+	content:"\f09b";
+}
+
+.title a{
+	color:inherit;
+}
+
+.title a:hover, .title a:focus{
+	text-decoration:none;
+}
+
+.no-results{
+	margin-top:5px;
+}
+
+.form-inline .input-group .input-group-btn{
+	width:1%;
+}
+
+.query, .comment-link span{
+	font-weight: bold;
+}
+
+.suggestion-range{
+	margin-top:15px;
+}
+
+.suggestion-range label{
+	display:block;
+}
+
+.comment-link{
+	margin-top:30px;
+}
+
+.comment-link span{
+	margin-right:5px;
+}
+
+.suggestion-score{
+	font-size:2rem;
+}
+
+.suggestion-score span{
+	margin-left:5px;
+}
+
+.result-divider{
+	border:1px solid #ddd;
+	margin:30px 0;
+}
+
+.similar-issues .panel-title{
+	font-size:2.5rem;
+}
+
+input[type=range]{
+	-webkit-appearance:none;
+}
+
+input[type=range]::-webkit-slider-runnable-track{
+    height: 3px;
+    background: #999;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border:1px solid #9D9D9D;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background:#f0f0f0;
+    margin-top: -8px;
+}
